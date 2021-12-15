@@ -1,0 +1,98 @@
+@use 'sass:color';
+@use 'sass:math';
+
+.btn {
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    text-decoration: none;
+    line-height: 1em;
+    text-transform: capitalize;
+
+    padding: math.div($gap, 2) $gap;
+    border-radius: math.div($gap, 2.66667);
+    border: 1px solid $br-color;
+    background-color: $white;
+    color: $dark;
+    transition-property: background-color, border-color, color;
+    transition-duration: .3s;
+    transition-timing-function: ease;
+    &:hover {
+        background-color: $light;
+        border-color: $br-hover;
+    }
+}
+
+.btn-white {
+    border-color: $white;
+    &:hover {
+        border-color: $light;
+    }
+}
+.btn-light {
+    background-color: $light;
+    border-color: $light;
+    &:hover {
+        background-color: color.adjust($light, $lightness: -5%);
+        border-color: color.adjust($light, $lightness: -5%);
+    }
+}
+.btn-dark {
+    background-color: $dark;
+    border-color: $dark;
+    color: $white;
+    &:hover {
+        background-color: color.adjust($dark, $lightness: 10%);
+        border-color: color.adjust($dark, $lightness: 10%);
+    }
+}
+.btn-black {
+    background-color: $black;
+    border-color: $black;
+    color: $white;
+    &:hover {
+        background-color: color.adjust($black, $lightness: 10%);
+        border-color: color.adjust($black, $lightness: 10%);
+    }
+}
+.btn-text, .btn-ghost {
+    background-color: transparent;
+    border-color: transparent;
+    &:hover {
+        border-color: transparent;
+        color: $link;
+    }
+}
+.btn-ghost {
+    color: $link;
+    &:hover {
+        color: $dark;
+    }
+}
+
+.btn-pill {
+    border-radius: 999px;
+}
+
+@each $name, $code in $colors {
+    .btn-#{$name} {
+        background-color: $code;
+        border-color: $code;
+        // @debug color.whiteness($code);
+        @if color.whiteness($code) < 45 {
+            color: $white;
+        } @else {
+            color: $dark;
+        }
+        &:hover {
+            background-color: color.adjust($code, $lightness: 5%);
+            border-color: color.adjust($code, $lightness: 5%);
+        }
+        &:active {
+            background-color: color.adjust($code, $lightness: -10%);
+            border-color: color.adjust($code, $lightness: -10%);
+        }
+    }
+
+}
